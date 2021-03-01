@@ -2,6 +2,9 @@ package uk.me.mattgill.samples.word.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +23,7 @@ public class WordParserTest {
 
     @Test
     public void when_simple_words_expect_recorded() {
-        parser.parse("Hello World");
+        parseText("Hello World");
         testRecordedWordCount(2);
     }
 
@@ -44,7 +47,7 @@ public class WordParserTest {
                 ";", //
                 ":", //
         };
-        parser.parse("start" + String.join("a", delimiters) + "end");
+        parseText("start" + String.join("a", delimiters) + "end");
         testRecordedWordCount(delimiters.length + 1);
     }
 
@@ -64,23 +67,27 @@ public class WordParserTest {
                 '`', //
                 '~', //
         };
-        parser.parse("start" + new String(nonDelimiters) + "end");
+        parseText("start" + new String(nonDelimiters) + "end");
         testRecordedWordCount(1);
     }
 
     @Test
     public void when_non_delimiter_symbols_found_in_word_expect_word_length_includes_them() {
-        parser.parse("Matthew'");
+        parseText("Matthew'");
         testRecordedWordLength(8);
     }
 
     @Test
     public void when_delimiter_symbols_found_in_word_expect_word_length_excludes_them() {
-        parser.parse("Matthew!");
+        parseText("Matthew!");
         testRecordedWordLength(7);
     }
 
     //// Utility methods
+
+    private void parseText(String text) {
+        parser.parse(new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8)));
+    }
 
     private void testRecordedWordCount(int count) {
         assertEquals(count, recorder.getTotalCount(), "An incorrect number of words were found");

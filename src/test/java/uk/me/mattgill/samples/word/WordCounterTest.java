@@ -2,7 +2,6 @@ package uk.me.mattgill.samples.word;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -31,9 +30,10 @@ public class WordCounterTest {
     }
 
     @Test
-    public void urlTest() throws IOException, InterruptedException, URISyntaxException {
-        System.out.println(new WordCounter().read(new URI("https://janelwashere.com/files/bible_daily.txt")) //
-                .summarise());
+    public void urlTest() throws URISyntaxException {
+        System.out
+                .println(new WordCounter().read(new URI("https://baconipsum.com/api/?type=meat-and-filler&format=text")) //
+                        .summarise());
     }
 
 }
