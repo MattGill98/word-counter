@@ -1,51 +1,54 @@
 package uk.me.mattgill.samples.word.model;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 /**
  * An object to store various statistics from recorded words.
  */
 public class WordRecorder {
 
-    private final List<String> words = new ArrayList<>();
-    private final Map<Integer, AtomicInteger> lengths = new HashMap<>();
+    private final AtomicInteger wordCount = new AtomicInteger(0);
+    private final AtomicInteger wordLengthTotal = new AtomicInteger(0);
+
+    private final Map<Integer, AtomicInteger> lengths = new ConcurrentHashMap<>();
 
     public void record(String word) {
-        words.add(word);
-
-        final int length = word.length();
-        if (lengths.containsKey(length)) {
-            lengths.get(length).incrementAndGet();
-        } else {
-            lengths.put(length, new AtomicInteger(1));
+        if (word == null) {
+            throw new IllegalArgumentException("Recorded word cannot be null");
         }
+
+        wordCount.incrementAndGet();
+        wordLengthTotal.addAndGet(word.length());
+
+        // Increment the count of the length of the passes word
+        lengths.computeIfAbsent(word.length(), wordLength -> new AtomicInteger(0)) //
+                .incrementAndGet();
     }
 
     public int getTotalCount() {
-        return words.size();
+        return wordCount.get();
     }
 
     public double getAverageWordLength() {
-        return words.stream().collect(Collectors.averagingInt(String::length));
+        return wordLengthTotal.doubleValue() / wordCount.get();
     }
 
     public Iterable<Integer> getWordLengths() {
-        return lengths.keySet().stream().sorted().collect(Collectors.toList());
+        return lengths.keySet().stream().sorted().collect(toList());
     }
 
     public Integer getWordsOfLength(int wordLength) {
-        if (!lengths.containsKey(wordLength)) {
-            return null;
-        }
-        return lengths.get(wordLength).get();
+        return lengths.getOrDefault(wordLength, new AtomicInteger(0)).get();
     }
 
+    // TODO: optimise
     public List<Integer> getHighestFrequencyWordLengths() {
 
         final List<Integer> resultList = new ArrayList<>();
