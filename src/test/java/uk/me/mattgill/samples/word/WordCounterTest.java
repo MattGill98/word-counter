@@ -2,6 +2,10 @@ package uk.me.mattgill.samples.word;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import org.junit.jupiter.api.Test;
 
 public class WordCounterTest {
@@ -24,6 +28,12 @@ public class WordCounterTest {
                 Number of words of length 7 is 1
                 Number of words of length 10 is 1
                 The most frequently occurring word length is 2, for word lengths of 4 & 5""", result);
+    }
+
+    @Test
+    public void urlTest() throws IOException, InterruptedException, URISyntaxException {
+        System.out.println(new WordCounter().read(new URI("https://janelwashere.com/files/bible_daily.txt")) //
+                .summarise());
     }
 
 }

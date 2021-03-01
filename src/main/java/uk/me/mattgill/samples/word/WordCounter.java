@@ -1,5 +1,8 @@
 package uk.me.mattgill.samples.word;
 
+import java.io.IOException;
+import java.net.URI;
+
 import uk.me.mattgill.samples.word.controller.ResultFormatter;
 import uk.me.mattgill.samples.word.controller.WordParser;
 import uk.me.mattgill.samples.word.model.WordRecorder;
@@ -17,6 +20,11 @@ public class WordCounter {
     }
 
     public WordCounter read(String source) {
+        parser.parse(source);
+        return this;
+    }
+
+    public WordCounter read(URI source) throws IOException, InterruptedException {
         parser.parse(source);
         return this;
     }
