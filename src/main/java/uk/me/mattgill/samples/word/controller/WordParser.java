@@ -14,9 +14,9 @@ public class WordParser {
 
     public void read(String source) {
         try (Scanner scanner = new Scanner(source)) {
-            scanner.useDelimiter("[\\s.,:;?!']");
+            scanner.useDelimiter("[\\s.,?!;:]");
             while (scanner.hasNext()) {
-                String word = scanner.next().replace(".", "");
+                String word = scanner.next();
                 if (!word.isEmpty()) {
                     recorder.record(word);
                 }
