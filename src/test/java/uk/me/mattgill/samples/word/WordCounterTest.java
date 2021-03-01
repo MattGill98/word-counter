@@ -24,7 +24,8 @@ public class WordCounterTest {
                                 Number of words of length 4 is 2
                                 Number of words of length 5 is 2
                                 Number of words of length 7 is 1
-                                Number of words of length 10 is 1""", result);
+                                Number of words of length 10 is 1
+                                The most frequently occurring word length is 2, for word lengths of 4 & 5""", result);
         }
 
 }

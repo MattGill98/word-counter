@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -40,6 +41,25 @@ public class WordRecorder {
             return null;
         }
         return lengths.get(wordLength).get();
+    }
+
+    public List<Integer> getHighestFrequencyWordLengths() {
+
+        final List<Integer> resultList = new ArrayList<>();
+        int highestFrequency = 0;
+
+        for (Entry<Integer, AtomicInteger> lengthEntry : lengths.entrySet()) {
+            final int frequency = lengthEntry.getValue().get();
+            if (frequency > highestFrequency) {
+                resultList.clear();
+            }
+            if (frequency >= highestFrequency) {
+                resultList.add(lengthEntry.getKey());
+                highestFrequency = frequency;
+            }
+        }
+
+        return resultList;
     }
 
 }
