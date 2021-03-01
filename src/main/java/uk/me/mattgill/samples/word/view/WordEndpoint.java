@@ -1,5 +1,6 @@
 package uk.me.mattgill.samples.word.view;
 
+import java.io.IOException;
 import java.net.URI;
 
 import javax.enterprise.context.RequestScoped;
@@ -22,7 +23,7 @@ public class WordEndpoint {
     @POST
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
-    public String countWords(CountWordsObject data) {
+    public String countWords(CountWordsObject data) throws IOException, InterruptedException {
         final String text = data.getText();
         final URI url = data.getUrl();
 

@@ -17,8 +17,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 
 public abstract class CustomExceptionMapper<T extends Throwable> implements ExceptionMapper<T> {
 
-    private Set<MediaType> SUPPORTED_MEDIA_TYPES = new HashSet<>(
-            asList(APPLICATION_JSON_TYPE, APPLICATION_XML_TYPE, TEXT_PLAIN_TYPE));
+    private Set<MediaType> SUPPORTED_MEDIA_TYPES = new HashSet<>(asList(APPLICATION_JSON_TYPE, APPLICATION_XML_TYPE));
 
     @Context
     private HttpHeaders headers;
