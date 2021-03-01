@@ -4,11 +4,15 @@ import java.util.Scanner;
 
 import uk.me.mattgill.samples.word.model.WordRecorder;
 
-public class WordCounter {
+public class WordParser {
 
-    private final WordRecorder recorder = new WordRecorder();
+    private final WordRecorder recorder;
 
-    public WordCounter read(String source) {
+    public WordParser(WordRecorder recorder) {
+        this.recorder = recorder;
+    }
+
+    public void read(String source) {
         try (Scanner scanner = new Scanner(source)) {
             scanner.useDelimiter("[\\s.,:;?!']");
             while (scanner.hasNext()) {
@@ -18,11 +22,6 @@ public class WordCounter {
                 }
             }
         }
-        return this;
-    }
-
-    public String summarise() {
-        return new ResultFormatter(recorder).formatAsText();
     }
 
 }
