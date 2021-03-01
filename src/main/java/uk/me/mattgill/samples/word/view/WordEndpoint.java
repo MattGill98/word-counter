@@ -25,7 +25,7 @@ public class WordEndpoint {
     @Produces(MediaType.TEXT_PLAIN)
     public String countWords(CountWordsObject data) throws IOException, InterruptedException {
         final String text = data.getText();
-        final URI url = data.getUrl();
+        final URI url = data.getUri();
 
         if (text != null) {
             counter.read(text);

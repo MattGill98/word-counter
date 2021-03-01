@@ -15,6 +15,18 @@ import uk.me.mattgill.samples.word.model.WordRecorder;
 
 public class WordCounterTest {
 
+    private static final String TEST_DATA_RESULT = """
+            Word count = 9
+            Average word length = 4.556
+            Number of words of length 1 is 1
+            Number of words of length 2 is 1
+            Number of words of length 3 is 1
+            Number of words of length 4 is 2
+            Number of words of length 5 is 2
+            Number of words of length 7 is 1
+            Number of words of length 10 is 1
+            The most frequently occurring word length is 2, for word lengths of 4 & 5""";
+
     private WordRecorder recorder;
     private WordCounter counter;
 
@@ -31,17 +43,7 @@ public class WordCounterTest {
                 .read("Hello world & good morning. The date is 18/05/2016") //
                 .summarise();
 
-        assertEquals("""
-                Word count = 9
-                Average word length = 4.556
-                Number of words of length 1 is 1
-                Number of words of length 2 is 1
-                Number of words of length 3 is 1
-                Number of words of length 4 is 2
-                Number of words of length 5 is 2
-                Number of words of length 7 is 1
-                Number of words of length 10 is 1
-                The most frequently occurring word length is 2, for word lengths of 4 & 5""", result);
+        assertEquals(TEST_DATA_RESULT, result);
     }
 
     @Test
@@ -52,10 +54,20 @@ public class WordCounterTest {
     }
 
     @Test
-    public void badUrlText() throws URISyntaxException, IOException, InterruptedException {
+    public void when_parsing_invalid_uri_expect_IllegalArgumentException()
+            throws URISyntaxException, IOException, InterruptedException {
         final URI testUri = new URI("file://not-remote-request");
         assertThrows(IllegalArgumentException.class, () -> counter.read(testUri));
         assertEquals(0, recorder.getTotalCount(), "No words should have been recorded");
+    }
+
+    @Test
+    public void when_parsing_valid_file_expect_result() throws URISyntaxException, IOException, InterruptedException {
+        final URI fileUri = getClass().getResource("/testFile.txt").toURI();
+        counter.read(fileUri);
+
+        final String result = counter.summarise();
+        assertEquals(TEST_DATA_RESULT, result);
     }
 
 }

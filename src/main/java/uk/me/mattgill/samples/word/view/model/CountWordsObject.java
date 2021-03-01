@@ -7,17 +7,17 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 public class CountWordsObject {
 
-    @Schema(type = SchemaType.STRING, format = "http[s]?://.+")
-    private URI url;
+    @Schema(type = SchemaType.STRING, format = "(file|http[s]?):\\/\\/.+", example = "http://janelwashere.com/files/bible_daily.txt")
+    private URI uri;
 
     private String text;
 
-    public URI getUrl() {
-        return url;
+    public URI getUri() {
+        return uri;
     }
 
-    public void setUrl(URI url) {
-        this.url = url;
+    public void setUri(URI uri) {
+        this.uri = uri;
     }
 
     public String getText() {
