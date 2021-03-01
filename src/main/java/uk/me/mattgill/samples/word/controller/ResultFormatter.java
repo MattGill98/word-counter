@@ -1,6 +1,7 @@
 package uk.me.mattgill.samples.word.controller;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -36,7 +37,7 @@ public class ResultFormatter {
         final List<String> lines = new ArrayList<>();
         lines.add(wordCountLine);
 
-        lines.add(String.format("Average word length = %.3f", recorder.getAverageWordLength()));
+        lines.add("Average word length = " + new DecimalFormat("#.###").format(recorder.getAverageWordLength()));
 
         for (int wordLength : recorder.getWordLengths()) {
             lines.add(String.format( //

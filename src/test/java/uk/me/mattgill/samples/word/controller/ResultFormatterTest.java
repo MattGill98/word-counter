@@ -56,6 +56,26 @@ public class ResultFormatterTest {
     }
 
     @Test
+    public void when_format_integer_expect_no_decimal_places() {
+        recorder.record("1");
+        recorder.record("12");
+        recorder.record("123");
+
+        final String result = formatter.formatAsText();
+        assertLinesPresent(result, "Average word length = 2\n");
+    }
+
+    @Test
+    public void when_format_decimal_expect_3_decimal_places() {
+        recorder.record("1");
+        recorder.record("12");
+        recorder.record("1234");
+
+        final String result = formatter.formatAsText();
+        assertLinesPresent(result, "Average word length = 2.333\n");
+    }
+
+    @Test
     public void when_format_list_with_size_0_expect_empty_string() {
         assertEquals("", ResultFormatter.formatList(List.of()));
     }
