@@ -42,7 +42,7 @@ public class ResultFormatterTest {
     }
 
     @Test
-    public void when_3_word_lengths_expect_correct_order() {
+    public void when_3_word_lengths_expect_list_correct_order() {
         recorder.record("Hello");
         recorder.record("Matthew");
         recorder.record("Gill");

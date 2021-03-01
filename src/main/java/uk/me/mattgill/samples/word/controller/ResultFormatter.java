@@ -1,5 +1,6 @@
 package uk.me.mattgill.samples.word.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -7,6 +8,10 @@ import java.util.stream.Collectors;
 
 import uk.me.mattgill.samples.word.model.WordRecorder;
 
+/**
+ * A formatter to format the results from a {@link WordRecorder} for convenient
+ * viewing.
+ */
 public class ResultFormatter {
 
     private final WordRecorder recorder;
@@ -15,6 +20,9 @@ public class ResultFormatter {
         this.recorder = recorder;
     }
 
+    /**
+     * @return a text string describing the key features of the stored recorder data
+     */
     public String formatAsText() {
 
         final int wordCount = recorder.getTotalCount();
@@ -46,16 +54,26 @@ public class ResultFormatter {
         return String.join(System.lineSeparator(), lines);
     }
 
-    protected static String formatList(Collection<?> items) {
+    /**
+     * @param items a list of serializable items
+     * @return a string representing the list, formatted for a readable sentence
+     */
+    protected static String formatList(Collection<? extends Serializable> items) {
         if (items.isEmpty()) {
             return "";
         }
-        final String result = String.join(", ", items.stream().map(Object::toString).collect(Collectors.toList()));
 
+        // Format the list of serialized items separated by a comma
+        final String result = String.join(", ", items.stream() //
+                .map(Object::toString) //
+                .collect(Collectors.toList()));
+
+        // For single items, return early
         if (items.size() < 2) {
             return result;
         }
 
+        // Any larger lists, the last comma should be an ampersand
         final int lastCommaIndex = result.lastIndexOf(",");
         return result.substring(0, lastCommaIndex) + " &" + result.substring(lastCommaIndex + 1);
     }

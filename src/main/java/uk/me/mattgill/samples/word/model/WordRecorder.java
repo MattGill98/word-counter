@@ -8,6 +8,9 @@ import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+/**
+ * An object to store various statistics from recorded words.
+ */
 public class WordRecorder {
 
     private final List<String> words = new ArrayList<>();
