@@ -46,8 +46,8 @@ public class ResultFormatter {
             ));
         }
 
-        final List<Integer> highestFrequencyWordLengths = recorder.getHighestFrequencyWordLengths();
-        final int highestWordLengthFrequency = recorder.getWordsOfLength(highestFrequencyWordLengths.get(0));
+        final var highestFrequencyWordLengths = recorder.getHighestFrequencyWordLengths();
+        final int highestWordLengthFrequency = recorder.getWordsOfLength(highestFrequencyWordLengths.iterator().next());
         lines.add(String.format("The most frequently occurring word length is %d, for word lengths of %s",
                 highestWordLengthFrequency, formatList(highestFrequencyWordLengths)));
 
