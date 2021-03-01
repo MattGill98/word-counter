@@ -1,8 +1,8 @@
 package uk.me.mattgill.samples.word.model;
 
-import static java.util.stream.Collectors.toList;
-
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -40,11 +40,11 @@ public class WordRecorder {
         return wordLengthTotal.doubleValue() / wordCount.get();
     }
 
-    public Iterable<Integer> getWordLengths() {
-        return lengths.keySet().stream().sorted().collect(toList());
+    public Collection<Integer> getWordLengths() {
+        return new LinkedHashSet<>(lengths.keySet());
     }
 
-    public Integer getWordsOfLength(int wordLength) {
+    public int getWordsOfLength(int wordLength) {
         return lengths.getOrDefault(wordLength, new AtomicInteger(0)).get();
     }
 
