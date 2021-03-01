@@ -22,7 +22,7 @@ public class WordRecorderTest {
     public void setup() {
         this.recorder = new WordRecorder();
 
-        // Record 9 random words in reverse length order
+        // Record 9 random words in reverse length order (important for order checking)
         for (int i = WORD_COUNT - 1; i >= 0; i--) {
             final int length = i + 1;
             final String randomWord = getRandomString(length);

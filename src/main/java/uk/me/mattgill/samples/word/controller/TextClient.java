@@ -45,6 +45,11 @@ public class TextClient {
                 .build() //
                 .send(request, BodyHandlers.ofInputStream());
 
+        final int statusCode = response.statusCode();
+        if (statusCode > 299 || statusCode < 200) {
+            throw new IOException("Invalid response code from URL: " + statusCode);
+        }
+
         return response.body();
     }
 
