@@ -17,9 +17,16 @@ public class ResultFormatter {
 
     public String formatAsText() {
 
-        final List<String> lines = new ArrayList<>();
+        final int wordCount = recorder.getTotalCount();
+        final String wordCountLine = "Word count = " + wordCount;
 
-        lines.add("Word count = " + recorder.getTotalCount());
+        // Print default message if no words are found
+        if (wordCount == 0) {
+            return wordCountLine;
+        }
+
+        final List<String> lines = new ArrayList<>();
+        lines.add(wordCountLine);
 
         lines.add(String.format("Average word length = %.3f", recorder.getAverageWordLength()));
 
@@ -39,7 +46,7 @@ public class ResultFormatter {
         return String.join(System.lineSeparator(), lines);
     }
 
-    private static String formatList(Collection<?> items) {
+    protected static String formatList(Collection<?> items) {
         if (items.isEmpty()) {
             return "";
         }
