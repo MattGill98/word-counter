@@ -77,7 +77,7 @@ mvn clean package
 
 Next, run the server:
 ~~~bash
-java -jar target/word-counter-1.0-SNAPSHOT-microbundle.jar --nocluster
+java -jar target/word-counter-1.0-microbundle.jar --nocluster
 ~~~
 
 Finally, visit `http://localhost:8080/api/openapi-ui`. From here you will find the Swagger UI which describes the REST API.
