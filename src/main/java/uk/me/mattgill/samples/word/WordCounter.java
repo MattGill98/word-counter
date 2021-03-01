@@ -17,7 +17,7 @@ public class WordCounter {
     }
 
     public WordCounter read(String source) {
-        parser.read(source);
+        parser.parse(source);
         return this;
     }
 

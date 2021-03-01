@@ -12,7 +12,7 @@ public class WordParser {
         this.recorder = recorder;
     }
 
-    public void read(String source) {
+    public void parse(String source) {
         try (Scanner scanner = new Scanner(source)) {
             scanner.useDelimiter("[\\s.,?!;:]");
             while (scanner.hasNext()) {

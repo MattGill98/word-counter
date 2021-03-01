@@ -20,7 +20,7 @@ public class WordParserTest {
 
     @Test
     public void when_simple_words_expect_recorded() {
-        parser.read("Hello World");
+        parser.parse("Hello World");
         testRecordedWordCount(2);
     }
 
@@ -44,7 +44,7 @@ public class WordParserTest {
                 ";", //
                 ":", //
         };
-        parser.read("start" + String.join("a", delimiters) + "end");
+        parser.parse("start" + String.join("a", delimiters) + "end");
         testRecordedWordCount(delimiters.length + 1);
     }
 
@@ -64,19 +64,19 @@ public class WordParserTest {
                 '`', //
                 '~', //
         };
-        parser.read("start" + new String(nonDelimiters) + "end");
+        parser.parse("start" + new String(nonDelimiters) + "end");
         testRecordedWordCount(1);
     }
 
     @Test
     public void when_non_delimiter_symbols_found_in_word_expect_word_length_includes_them() {
-        parser.read("Matthew'");
+        parser.parse("Matthew'");
         testRecordedWordLength(8);
     }
 
     @Test
     public void when_delimiter_symbols_found_in_word_expect_word_length_excludes_them() {
-        parser.read("Matthew!");
+        parser.parse("Matthew!");
         testRecordedWordLength(7);
     }
 
